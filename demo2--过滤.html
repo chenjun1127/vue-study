@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>过滤器</title>
+	<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+</head>
+<body>
+	<ul class="product">
+		<li v-for="product in products|filterBy '雪梨' in 'name'  |orderBy 'price' 0">
+			{{product.name}}-{{product.price|discount 25 | currency }}
+		</li>
+	</ul>
+	<script>
+ 
+	/*定义在全局 
+	Vue.filter('discount', function(value,discount) {
+		return value  * ( discount / 100 ) ;
+	});
+	*/
+	var product = new Vue({
+		el: '.product',
+		data: {
+			products: [
+				{name: '苹果',price: 25,category: "水果"}, 
+				{name: '香蕉',price: 15,category: "水果"}, 
+				{name: '雪梨',price: 65,category: "水果"}, 
+				{name: '宝马',price: 2500,category: "汽车"},
+				{name: '奔驰',price: 10025,category: "汽车"}, 
+				{name: '柑橘',price: 15,category: "水果"}, 
+				{name: '奥迪',price: 25,category: "汽车"}
+			]
+		},
+		//自定义在实例
+		filters: {
+			discount: function(value, discount) {
+				return value * (discount / 100);
+			}
+		}
+	})
+		
+	</script>
+</body>
+</html>

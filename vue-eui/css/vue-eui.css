@@ -1,0 +1,892 @@
+/*!
+ * =====================================================
+ * eui v0.0.1 (http://www.kancloud.cn/euiforyou/eui)
+ * =====================================================
+ */
+
+*{
+	-webkit-tap-highlight-color:rgba(255,255,255,0);/*屏蔽ios和android下点击元素时出现的阴影*/
+  	-webkit-touch-callout: none; /*长按时不触发系统的菜单*/
+}
+
+html,body{
+	height:100%
+}
+html{
+	font-family:"Helvetica Neue",Helvetica,STHeiTi,Arial,sans-serif;
+	-ms-text-size-adjust:100%;
+	-webkit-text-size-adjust:100%;
+	font-size:62.5%
+}
+body{
+	margin:0;
+	font-size:1.4rem;
+	line-height:1.5;
+	color:#333;
+	background-color:#fff;
+	overflow: hidden; /* this is important to prevent the whole page to bounce */
+}
+
+/** 清除内外边距   **/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+th, td /* table elements 表格元素 */ {
+  	margin: 0;
+  	padding: 0;
+}
+
+/** 设置默认字体   **/
+body,
+button, input, select, textarea /* for ie */ {
+  	font: 15px/1.5 "Microsoft YaHei", arial, \5b8b\4f53, sans-serif;
+}
+h1, h2, h3, h4, h5, h6 { 
+	font-size: 100%; 
+}
+address, cite, dfn, em, var { 
+	font-style: normal; /* 将斜体扶正 */
+}
+code, kbd, pre, samp { 
+	font-family: courier new, courier, monospace; /* 统一等宽字体 */
+} 
+small { 
+	font-size: 12px; /* 小于 12px 的中文很难阅读，让 small 正常化 */
+} 
+
+/** 重置列表元素   **/
+ul, ol { list-style: none; }
+li{
+	font-size: 16px;
+}
+
+/** 重置文本格式元素 **/
+a ,a:hover { 
+	font-size: 16px;
+	text-decoration: none; 
+}
+
+/** 重置表单元素 **/
+legend { color: #000; } /* for ie6 */
+fieldset, img { border: 0; } /* img 搭车：让链接里的 img 无边框 */
+button, input, select, textarea { font-size: 100%; } /* 使得表单元素在 ie 下能继承字体大小 */
+button{-webkit-appearance: none;border: 0;background: 0 0;}
+/* 取消表单项聚焦时产生的黄色边框  */
+input,button,select,textarea {
+	outline: none;
+}
+a,input,textarea,select {
+   outline: 0;
+}
+/* 取消滚动条 */  
+::-webkit-scrollbar{  
+   width:0px;  
+} 
+/*输入提示文字*/
+::-webkit-input-placeholder{
+	font-size:16px;
+	font-family: "Microsoft YaHei";
+	color:#cfcfcf;
+}
+/** 重置表格元素 **/
+table { border-collapse: collapse; border-spacing: 0; }
+
+/** 重置图片 **/
+img { 
+	margin: 0; 
+	padding: 0; 
+	border: none; 
+	vertical-align: middle; 
+}
+
+/* 清除浮动 */
+.clear:before, .clear:after { 
+	content: ""; 
+	display: table; 
+}
+.clear:after { 
+	clear: both; 
+}
+.clear{ 
+	zoom: 1; 
+}
+
+/**
+ * 通用类
+ */
+.eui-position-left{
+	float: left;
+}
+.eui-position-right{
+	float: right;
+}
+.eui-text-center{
+	text-align: center;
+}
+.eui-text-overflow{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+}
+
+/*
+ * 页面框架
+ */
+
+/* 滚动属性   */
+.eui-scroller{
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 100%;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+}
+.eui-header,.eui-footer,.eui-wrap-page{
+  	position:absolute;
+  	left:0;
+  	right:0;
+}
+.eui-header,.eui-footer{
+  	height:45px;
+  	font-size: 18px;
+  	font-family: "微软雅黑";
+  	text-align: center;
+  	line-height:45px;
+  	z-index:900;  
+}
+.eui-header{
+  	top: 0;
+  	color:#fff;
+  	background-color: #15b5e9;
+}
+.eui-footer{
+  	bottom: 0;
+  	color:#383838;
+  	background-color: #eee;
+}
+.eui-wrap-page{
+	position: absolute;
+	z-index: 1;
+	top: 45px;
+	bottom: 45px;
+	left: 0;
+	width: 100%;
+	background: #fff;
+	overflow: hidden;
+}
+
+.eui-header a.text{
+  	line-height: 50px;
+  	margin: 0px 10px;
+}
+.eui-header .eui-icon{
+	font-size: 24px;
+	position: relative;
+	margin: 0px;
+	padding: 10px;
+} 
+.eui-header .eui-title{
+	left: 50px;
+	right: 50px;
+	display: inline-block;
+	overflow: hidden;
+	width: auto;
+	margin: 0;
+	text-overflow: ellipsis;
+	font-size: 18px;
+	line-height: 45px;
+	font-weight: 500;
+	position: absolute;
+	text-align: center;
+	white-space: nowrap;
+}
+
+/*底部栏目table等分*/
+.eui-bottom-bar {
+  	display: flex;  
+	flex-flow: row;
+  	width: 100%;
+}
+.eui-bottom-bar li{
+  	flex: 1;
+}
+
+
+/**
+ * button
+ */
+.eui-btn{
+   	font-size:18px;
+   	font-family:"Microsoft YaHei"; 
+   	padding: 5px 15px;
+   	border-radius: 4px;
+   	color: #191919;
+}
+.eui-btn:active{
+  	background-image: none;
+  	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.15);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+/*颜色选择*/
+.eui-btn-gray{
+	color: #444;
+	background-color: #e6e6e6;		
+}
+.eui-btn-primary {
+  	color: #ffffff;
+  	background-color: #0e90d2;
+}
+.eui-btn-secondary{
+  	color: #ffffff;
+  	background-color: #3bb4f2;
+}
+.eui-btn-success {
+  	color: #ffffff;
+  	background-color: #4cda60;
+}
+.eui-btn-warning {
+  	color: #ffffff;
+  	background-color: #f37b1d;
+}
+.eui-btn-danger {
+  	color: #ffffff;
+  	background-color: #dd514c;
+}
+/* 透明按钮（使用父元素的背景色） */
+.eui-btn-transparent {
+	border: 1px solid #eee;
+	background-color: transparent;
+}
+.eui-btn-transparent:active {
+	background-color: #eee;
+}
+/*形状选择*/
+.eui-btn-round{
+  	border-radius: 15px;
+}  
+.eui-btn-rectangle{
+  	border-radius: 0;
+} 
+.eui-btn-block{
+   width: 90%;
+   display: block;
+   margin: 15px auto; 
+   padding: 12px;
+}
+/*图标按钮*/
+.eui-btn-icon{
+	font-size: 16px;
+	padding: 8px 16px;
+} 
+.eui-btn-icon span{
+	font-size: 16px;
+}
+.eui-btn-icon h5{
+	font-size: 12px;
+}
+/* 按钮组  */
+.eui-btn-group{
+	width: 100%;
+	display: -webkit-box;
+  	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  	-webkit-box-align: center; 
+}
+.eui-btn-group button{
+	display: block;
+  	-webkit-box-flex: 1;
+  	border-radius: 0;
+  	border: none;
+}
+.eui-btn-group button:active{
+  	background-image: none;
+  	background-color: #e4e6e5;
+  	-webkit-box-shadow: none;
+  	box-shadow:none;
+}
+
+
+/**
+ * ve-chatlist
+ */
+.eui-chat{
+	background: linear-gradient(bottom , rgb(232, 220, 199) 3% , rgb(220, 227, 216) 30% , rgb(179, 238, 243) 66%);
+    background: -o-linear-gradient(bottom , rgb(232, 220, 199) 3% , rgb(220, 227, 216) 30% , rgb(179, 238, 243) 66%);
+    background: -ms-linear-gradient(bottom , rgb(232, 220, 199) 3% , rgb(220, 227, 216) 30% , rgb(179, 238, 243) 66%);
+    background: -moz-linear-gradient(bottom , rgb(232, 220, 199) 3% , rgb(220, 227, 216) 30% , rgb(179, 238, 243) 66%);
+    background: -webkit-linear-gradient(bottom , rgb(232, 220, 199) 3% , rgb(220, 227, 216) 30% , rgb(179, 238, 243) 66%);
+}
+.eui-chat-history-date{ 
+	padding-top: 5px;
+	text-align: center;
+	font-size: 12px;
+}
+
+.eui-chat-receiver,
+.eui-chat-sender{
+    clear:both;
+    margin: 5px;
+}
+.eui-chat-receiver .eui-chat-avatar{
+	float: left;
+}
+.eui-chat-sender .eui-chat-avatar{
+	float: right;
+}
+.eui-chat-avatar img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.eui-chat-content{
+	margin: 0 10px 10px 10px;
+    padding: 10px;
+    border-radius:7px;
+    max-width: 60%;
+    position: relative;
+    min-height: 20px;
+    font-size:15px;
+}
+.eui-chat-receiver .eui-chat-content{
+	float: left; 
+    background: #f5f5f5;
+}
+.eui-chat-sender .eui-chat-content{
+    float:right;   
+    color: #ffffff; 
+    background: #15b5e9; 
+}
+.eui-chat-triangle{
+	height:0px; 
+    width:0px; 
+    border-width:8px; 
+    border-style:solid;
+    position: absolute;
+    top:6px; 
+}
+.eui-chat-receiver .eui-chat-triangle{ 
+    border-color:transparent #f5f5f5 transparent transparent;    
+    left:-16px;  
+}
+.eui-chat-sender .eui-chat-triangle{ 
+    border-color:transparent transparent transparent #15b5e9; 
+    right:-16px; 
+}
+
+/*底部输入框*/
+.eui-chat-footer{
+	position: absolute;
+	width: 100%;
+	height: 44px;
+	border-top: solid 1px #eee;
+	left: 0px;
+	bottom: 0px;
+	background-color: #fafafa;
+	
+	display: flex;  
+	flex-flow: row;
+}
+.eui-chat-icon{
+    flex: 1;
+}
+.eui-chat-input{
+	flex: 3;
+}
+.eui-chat-btn{
+	flex: 1;
+}
+/*图标*/
+.eui-chat-icon i{
+	font-size: 25px;
+	color:#a7a8aa;
+	line-height: 44px;
+}
+/*输入框*/
+.eui-chat-input textarea{
+	width: 100%;
+	height: 30px;
+	resize: none;
+	font-size:16px;
+	line-height: 30px;
+	border: solid 1px #ddd;
+	border-radius: 5px;
+	margin: 7px 0px;
+}
+/*按钮*/
+.eui-chat-btn button{
+	font-size: 16px;
+	padding: 2px 10px;
+	margin: 7px 5px;
+	height:30px;
+}
+
+
+/**
+ * ve-dialog
+ */
+.eui-dialog-mask {
+  	position: fixed;
+  	z-index: 9998;
+  	top: 0;
+  	left: 0;
+  	width: 100%;
+  	height: 100%;
+  	background-color: rgba(0, 0, 0, .5);
+  	display: table;
+  	transition: opacity .3s ease;
+}
+
+.eui-dialog-wrapper {
+  	display: table-cell;
+  	vertical-align: middle;
+}
+
+.eui-dialog {
+  	width: 60%;
+  	margin: 0px auto;
+  	background-color: #fff;
+  	border-radius: 5px;
+  	box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  	transition: all .3s ease;
+  	font-family: "microsoft yahei";
+}
+.eui-dialog-title{
+	color: #fff;
+	padding: 10px;
+	height: 20px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #000;
+}
+.eui-dialog-title h3{
+	float: left;
+}
+.eui-dialog-title i{
+	float: right;
+	font-size: 20px;
+}
+.eui-dialog-content{
+	font-size: 15px;
+	padding: 20px 15px;
+}
+.eui-dialog-btns{
+	border-top: 1px solid #eee;
+	text-align: center;
+	display: flex;  
+	flex-flow: row; 
+}
+.eui-dialog-btns button{
+	flex: 1;
+	padding: 10px 0px;
+}
+.eui-dialog-btns button:active{
+	background: #ecf0f1;
+}
+.eui-dialog-btns button:not(:last-child){
+	border-right:1px solid #eee;
+}
+/*过渡效果*/
+.dialog-enter, .dialog-leave {
+  	opacity: 0;
+}
+.dialog-enter .eui-dialog,
+.dialog-leave .eui-dialog{
+  	-webkit-transform: scale(1.1);
+  	transform: scale(1.1);
+}
+
+/**
+ * list
+ */
+.eui-list-group{
+	position: relative;
+	background-color: inherit;
+}
+.eui-list-cell {
+	position: relative;
+	overflow: hidden;
+	padding: 10px 15px;
+	-webkit-touch-callout: none;
+}
+.eui-list-group,.eui-list-cell{
+	overflow: hidden;
+}
+.eui-list-group:before,.eui-list-group:after,.eui-list-cell:after{
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 1px;
+	content: '';
+	-webkit-transform: scaleY(.5);
+	transform: scaleY(.5);
+	background-color: #c8c7cc;
+}
+.eui-list-group:before{	
+	top: 0;
+}
+.eui-list-group:after {
+	bottom: 0;
+}
+.eui-list-cell:after{
+	bottom: 0;
+	left: 15px;
+}
+.eui-list-cell>a{
+	position: relative;
+	display: block;
+	overflow: hidden;
+	margin: -11px -15px;
+	padding: inherit;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: inherit;
+}
+.eui-item{
+	float:left;
+}
+/*箭头*/
+.eui-list-cell>a>i{
+	float:right;
+	color:#444;
+	font-size:16px;
+	line-height: inherit;
+}
+.eui-list-cell .eui-list-badge{
+	float:right;
+	color: #ffdccb;
+	background: #f3432c;
+	text-align: center;
+	font-size:12px;
+	padding: 2px;
+	min-width:18px;
+	height: 18px;
+	border-radius: 15px;
+}
+
+
+/**
+ * message list（消息列表）
+ */
+.eui-message{
+	background-color: #fff !important;
+}
+.eui-message li:after{
+	left: 0px;
+}
+.eui-message li>a{
+	margin: -11px -20px;
+	overflow: hidden;
+}
+.eui-message-logo{
+	float:left;
+	margin-right: 10px;
+	line-height: 42px;
+	max-width: 42px;
+	height: 42px;
+	border:1px solid;
+	border-color: #eee;
+	border-radius: 42px;
+}
+.eui-message-body .eui-message-title{
+	font-size:15px;
+	font-weight:600;
+	color:#000;
+}
+.eui-message-body .eui-message-time{
+	float:right;
+	font-size:12px;
+	color:#848484;
+}
+.eui-message-content-wrap{
+	margin: 2px 0px;
+}
+.eui-message-content{
+	float:left;
+	width: 72%;
+	font-size:14px;
+	color:#848484;
+}
+.eui-message p{
+	text-indent: 2em;
+	padding: 5px;
+	line-height: 25px;
+}
+
+
+.list-item-del{
+  position: absolute;
+  height: 100%;
+  width: 80px;
+  top: 0;
+  right: -80px;
+  line-height: 50px;
+  background: #e00;
+  color: #fff;
+  text-align: center;
+  transition: .2s;
+}
+
+.list-item-status-del .list-item-body{
+  margin-left: -80px;
+}
+.list-item-status-del .list-item-del{
+  right: 0;
+}
+
+
+/**
+ * ve-tab
+ */
+.eui-bottom-bar {
+    width: 100%;
+	display: box;
+	height: 45px;
+	display: -webkit-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box; 
+  	-webkit-box-align: center;
+}
+.eui-bottom-bar li{
+	 display: block;
+  	-webkit-box-flex: 1;
+}
+.eui-bottom-bar li i{
+	display: block;
+	margin: 0px;
+	padding: 0;
+	line-height: 25px;
+	font-size: 20px;
+	color: #666;
+}
+.eui-bottom-bar li span{
+	color: #666;
+	padding: 0 !important;
+	display: block;
+	clear: both;
+	text-align: center;
+	font-size: 12px;
+	line-height: 12px;
+	margin-top: 0px  !important;
+}
+.eui-tab-current,
+.eui-tab-current i,
+.eui-tab-current span{
+	color: #15B5E9 !important;
+}
+
+
+/**
+ * 侧滑菜单(仿qq)
+ */
+
+/*初始化*/
+.eui-OffCanvasMenu-container,.eui-menu-wrap,.eui-content-wrap
+{
+	width: 100%;
+	height: 100%;
+	background-color:#eee;
+	overflow: hidden;
+}
+.eui-content-wrap{
+	background-color: #fff;	
+}
+/*菜单*/
+.eui-menu-wrap {
+	width: 200px;
+	opacity: 0;
+	filter:alpha(opacity=0);
+	position: absolute;
+	font-weight: 600;
+}
+/*主体*/
+.eui-content-wrap {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+/* 显示菜单 */
+.eui-show-menu .eui-menu-wrap {
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.eui-show-menu .eui-content-wrap{
+	height:80%;
+	-webkit-transform: translate3d(200px,10%,0);
+	transform: translate3d(200px,10%,0);
+}
+
+/**
+  * 图标 （icon）
+  */
+@font-face {
+    font-family: euiicons;
+    font-weight: normal;
+    font-style: normal;
+    src: url('../fonts/eui.ttf') format('truetype');
+}
+.eui-icon
+{
+    font-family: euiicons;
+    font-size: 24px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+}
+/*箭头类*/
+.eui-icon-back:before { content: "\e60b"; }
+.eui-icon-upvector:before { content: "\e658"; }
+.eui-icon-upleftvector:before { content: "\e671"; }
+.eui-icon-uprightvector:before { content: "\e676"; }
+.eui-icon-downleftvector:before { content: "\e675"; }
+.eui-icon-downrightvector:before { content: "\e674"; }
+.eui-icon-arrowup:before { content: "\e628"; }
+.eui-icon-arrowdown:before { content: "\e62b"; }
+.eui-icon-arrowleft:before { content: "\e61d"; }
+.eui-icon-arrowright:before { content: "\e61b"; }
+.eui-icon-downvector:before { content: "\e659"; }
+.eui-icon-pullup:before { content: "\e672"; }
+.eui-icon-triangle-arrowdown:before { content: "\e651"; }
+.eui-icon-doubleup:before { content: "\e65c"; }
+.eui-icon-doubledown:before { content: "\e65b"; }
+
+/*技术类*/
+.eui-icon-app:before { content: "\e656"; }
+.eui-icon-center:before { content: "\e665"; }
+.eui-icon-html:before { content: "\e64d"; }
+.eui-icon-html5:before { content: "\e649"; }
+.eui-icon-phone:before { content: "\e609"; }
+.eui-icon-answer:before { content: "\e617"; }
+.eui-icon-caller:before { content: "\e650"; }
+.eui-icon-computer:before { content: "\e644"; }
+.eui-icon-mobilephone:before { content: "\e62c"; }
+.eui-icon-wifi:before { content: "\e62d"; }
+.eui-icon-position:before { content: "\e633"; }
+.eui-icon-loading:before { content: "\e65a"; }
+.eui-icon-search:before { content: "\e63c"; }
+.eui-icon-help:before { content: "\e614"; }
+.eui-icon-browser:before { content: "\e640"; }
+.eui-icon-internet:before { content: "\e62e"; }
+.eui-icon-map:before { content: "\e62a"; }
+.eui-icon-tag:before { content: "\e66c"; }
+.eui-icon-hideleft:before { content: "\e66d"; }
+.eui-icon-bars:before { content: "\e62f"; }
+.eui-icon-about:before { content: "\e677"; }
+
+/*物件类*/
+.eui-icon-calendar:before { content: "\e65d"; }
+.eui-icon-book:before { content: "\e647"; }
+.eui-icon-closevoice:before { content: "\e653"; }
+.eui-icon-lockopen:before { content: "\e610"; }
+.eui-icon-envelope:before { content: "\e64f"; }
+.eui-icon-cart:before { content: "\e666"; }
+.eui-icon-battery:before { content: "\e622"; }
+.eui-icon-clock:before { content: "\e627"; }
+.eui-icon-micro:before { content: "\e620"; }
+.eui-icon-deliver:before { content: "\e669"; }
+.eui-icon-paperplane:before { content: "\e61f"; }
+.eui-icon-camera:before { content: "\e60f"; }
+.eui-icon-lock:before { content: "\e616"; }
+.eui-icon-key:before { content: "\e626"; }
+.eui-icon-plane:before { content: "\e637"; }
+.eui-icon-train:before { content: "\e639"; }
+.eui-icon-wallet:before { content: "\e638"; }
+.eui-icon-flag:before { content: "\e632"; }
+.eui-icon-eraser:before { content: "\e65f"; }
+.eui-icon-gift:before { content: "\e661"; }
+.eui-icon-moon:before { content: "\e66f"; }
+.eui-icon-weather:before { content: "\e623"; }
+.eui-icon-water:before { content: "\e63d"; }
+
+/*操作类*/
+.eui-icon-fullscreen:before { content: "\e673"; }
+.eui-icon-zoomin:before { content: "\e643"; }
+.eui-icon-zoomout:before { content: "\e646"; }
+.eui-icon-copy:before { content: "\e65e"; }
+.eui-icon-editor:before { content: "\e64b"; }
+.eui-icon-delete:before { content: "\e60a"; }
+.eui-icon-share:before { content: "\e64a"; }
+.eui-icon-fenxiang:before { content: "\e678"; }
+.eui-icon-refresh:before { content: "\e664"; }
+.eui-icon-time:before { content: "\e670"; }
+.eui-icon-keyboard:before { content: "\e654"; }
+.eui-icon-warn:before { content: "\e64c"; }
+.eui-icon-add:before { content: "\e63a"; }
+.eui-icon-addwithround:before { content: "\e67d"; }
+.eui-icon-history:before { content: "\e66a"; }
+.eui-icon-set:before { content: "\e61a"; }
+.eui-icon-true:before { content: "\e613"; }
+.eui-icon-false:before { content: "\e612"; }
+.eui-icon-upload:before { content: "\e60d"; }
+.eui-icon-download:before { content: "\e60e"; }
+.eui-icon-change:before { content: "\e657"; }
+.eui-icon-more:before { content: "\e64e"; }
+
+/*社交类*/
+.eui-icon-home:before { content: "\e602"; }
+.eui-icon-qq:before { content: "\e603"; }
+.eui-icon-qqroom:before { content: "\e645"; }
+.eui-icon-wechat:before { content: "\e607"; }
+.eui-icon-friendsring:before { content: "\e63b"; }
+.eui-icon-sina:before { content: "\e601"; }
+.eui-icon-shake:before { content: "\e641"; }
+.eui-icon-scan:before { content: "\e634"; }
+.eui-icon-collect:before { content: "\e63f"; }
+.eui-icon-message:before { content: "\e648"; }
+.eui-icon-money:before { content: "\e635"; }
+.eui-icon-sending:before { content: "\e668"; }
+.eui-icon-love:before { content: "\e611"; }
+.eui-icon-praise:before { content: "\e61c"; }
+.eui-icon-disagree:before { content: "\e61e"; }
+.eui-icon-restaurant:before { content: "\e63e"; }
+.eui-icon-bankcard:before { content: "\e636"; }
+.eui-icon-find:before { content: "\e605"; }
+.eui-icon-voice:before { content: "\e655"; }
+.eui-icon-star:before { content: "\e67b"; }
+.eui-icon-star-fulled:before { content: "\e67c"; }
+
+/*文件类*/
+.eui-icon-file:before { content: "\e619"; }
+.eui-icon-video:before { content: "\e621"; }
+.eui-icon-word:before { content: "\e662"; }
+.eui-icon-filepdf:before { content: "\e618"; }
+.eui-icon-filezip:before { content: "\e615"; }
+.eui-icon-img:before { content: "\e60c"; }
+.eui-icon-card:before { content: "\e667"; }
+.eui-icon-music:before { content: "\e625"; }
+.eui-icon-translation:before { content: "\e624"; }
+.eui-icon-movie:before { content: "\e629"; }
+.eui-icon-pause:before { content: "\e66b"; }
+.eui-icon-attachment:before { content: "\e630"; }
+.eui-icon-link:before { content: "\e663"; }
+.eui-icon-folder:before { content: "\e66e"; }
+
+/*人物类*/
+.eui-icon-person:before { content: "\e608"; }
+.eui-icon-eye:before { content: "\e604"; }
+.eui-icon-scholarship:before { content: "\e660"; }
+.eui-icon-cloth:before { content: "\e642"; }
+.eui-icon-expression:before { content: "\e652"; }
+.eui-icon-personadd:before { content: "\e606"; }
+.eui-icon-account:before { content: "\e631"; }
+.eui-icon-man:before { content: "\e67a"; }
+.eui-icon-woman:before { content: "\e679"; }

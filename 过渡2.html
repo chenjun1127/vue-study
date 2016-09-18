@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>和第三方animate.css配合使用的过渡</title>
+	<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+	<link href="http://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet">
+</head>
+<style>
+	#app{width: 80%;border:1px solid #d9d9d9;padding: 10px;position: relative;margin: 0 auto;}
+	.inputList{width: 100%;  overflow-x: hidden;}
+	ul{list-style: none;padding: 0}
+	ul>li{padding: 10px 0;border-bottom: 1px dashed #d9d9d9;}
+	.isA{background: #8782d0;color: #fff;}
+ 
+</style>
+<body>
+	<div id="app">
+		<div><input type="text" v-model='text' :style="inputClass" @keyup.enter="newItem"  ></div>
+		<ul class="inputList">
+			<li class="animated" v-for="item in list | filterBy text" transition="bounce" stagger="100" @click="toggleLi(item)" :class="{isA:item.isFinished}">{{item.msg}}</li>
+		</ul>
+		
+	</div>
+	<script>
+		// Vue.transition('bounce', {
+		//   	enterClass: 'bounceInLeft',
+		//   	leaveClass: 'bounceOutRight'
+		// })
+		// 存储
+	 	var storage_key="test";
+	 	function fetch() {
+	 		return JSON.parse(window.localStorage.getItem(storage_key) || '[]');
+	 	}
+
+	 	function save(items) {
+	 		window.localStorage.setItem(storage_key, JSON.stringify(items))
+	 	}
+	 	new Vue({
+		 	el:'#app',
+		 	data:{
+		 		text:'',
+		 		list: fetch(),
+				inputClass: {
+					width: '200px',
+					height: '36px',
+					lineHeight: '36px',
+					fontFamily: 'microsoft yahei'
+				},
+		         
+
+		 	},
+			methods: {
+				toggleLi: function(item) {
+					item.isFinished = !item.isFinished
+
+				},
+				newItem: function() {
+					if (this.text == '') {
+						return
+					} else {
+						this.list.push({
+							msg: this.text,
+							isFinished: false
+						})
+						this.text = ''
+					}
+				}
+			},
+		 	transitions: {
+		        bounce: {
+		            enterClass: 'bounceInLeft',
+		            leaveClass: 'bounceOutRight'
+		        }
+		    },
+		    watch:{
+		    	list:{
+		    		handler:function(list){
+		    			save(list)
+		    		},
+		    		deep: true
+		    	}
+		    }
+		 })
+	 	
+	  
+	</script>
+</body>
+</html>

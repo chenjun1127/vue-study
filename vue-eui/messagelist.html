@@ -1,0 +1,60 @@
+http://127.0.0.1:8020/Hello%20Vuejs/vue-eui/message.html<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>tabbar（底部栏）</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准eui.css-->
+		<link rel="stylesheet" type="text/css" href="css/vue-eui.css"/>
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>	
+	  		
+	</head>
+	
+<body id="app">
+	
+	<header class="eui-header">
+		<a class="eui-icon eui-icon-arrowleft eui-position-left"></a>
+		<h1 class="eui-title">message list(消息列表)</h1>
+	</header>
+	  
+	<div class="eui-wrap-page">
+	  	<div class="eui-scroller">
+	  		
+			<ve-messagelist :listdata="listdata"></ve-messagelist>
+	    
+	  	</div>
+	</div>
+		
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue-eui.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">	
+		var example1 = new Vue({
+		  	el: '#app',
+		  	data: {
+		   	 	listdata: [
+		      		{ 
+		      			path:'#',
+		      			logo:'img/eui-chat-1.png', 
+		      			name:'智能小助手1',
+		      			time:'12:00',
+		      			msg:'我是萌萌哒的机器人',
+		      			msgnum:'1'
+		      		},
+		      		{ 
+		      			path:'#',
+		      			logo:'img/eui-chat-2.png', 
+		      			name:'智能小助手2',
+		      			time:'12:00',
+		      			msg:'我是萌萌哒的机器人,你说什么鬼？哈哈哈',
+		      			msgnum:'99+' 
+		      		}
+		    	]
+		 	}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>im-chat（ 聊天窗口）</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准eui.css-->
+		<link rel="stylesheet" type="text/css" href="css/vue-eui.css"/>
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>	
+	
+	</head>
+
+	<body id="app">
+		
+		<ve-confirm :show.sync="showModal"></ve-confirm>					
+		<button class="eui-btn eui-btn-block eui-btn-secondary" @click="confirm">confirm</button>
+		
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue-eui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+			  	el: '#app',
+			  	data: {
+			     	showModal: false,
+			  	},
+			  	created:function(){
+			  		VEdialog({
+						title:[
+							'我是标题',
+							'background-color:#8DCE16; color:#fff;'
+						],
+						content:[
+							'<p>我是第一行</p><p>我是第二行</p>',
+							'color:#f00;text-align:center'
+						],
+						btn:['取消','确认'],
+						callback:[
+							function(){
+					   			alert("你点击了取消！");
+					   		},
+					   		function(){
+					   			alert("你点击了确定！");
+					   		}
+						]
+					});
+			  	},
+			  	methods:{
+			  		confirm:function(){
+			  			this.showModal = true;
+			  		}
+			  	}
+			})
+		</script>
+		
+	</body>
+</html>

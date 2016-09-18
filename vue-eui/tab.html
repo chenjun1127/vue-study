@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>tabbar（底部栏）</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准eui.css-->
+		<link rel="stylesheet" type="text/css" href="css/vue-eui.css"/>
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>	
+		
+	</head>
+	
+<body id="app">
+	
+	<header class="eui-header">
+		<a class="eui-icon eui-icon-{{header.lefticon}} eui-position-left"></a>
+		<h1 class="eui-title">{{header.title}}</h1>
+		<a class="eui-icon eui-icon-{{header.righticon}} eui-position-right"></a>
+	</header>
+	  
+	<div class="eui-wrap-page">
+	  	<div class="eui-scroller">
+	   
+			<component :is="view"></component>
+   			
+   			<template id="home">
+        		<div>我是首页</div>
+    		</template>
+    		
+    		<template id="find">
+        		<div>我是发现</div>
+    		</template>
+    		
+    		<template id="message">
+        		<ve-messagelist :listdata="message.listdata"></ve-messagelist>
+    		</template>
+    		
+    		<template id="person">
+        		<div>我是个人</div>
+    		</template>
+    		
+	  	</div>
+	</div>
+	
+	<footer class="eui-footer">
+		<ul class="eui-bottom-bar">
+		    <li v-for="item in footer" v-on:click="tabbar($index)" v-bind:class="{'eui-tab-current':initIndex===$index}">
+		    	<i class="eui-icon eui-icon-{{item.icon}}"></i>
+			    <span>{{item.title}}</span>
+		    </li>
+		</ul>
+  	</footer>
+
+	<script src="js/vue.js" charset="utf-8"></script>
+	<script src="js/vue-eui.js" charset="utf-8"></script>
+	<script type="text/javascript">	
+		VEtabbar({
+			config:{
+				el:"#app",
+				initIndex:1,//[初始化参数,默认为第一个]
+				tplID:['home','find','message','person'],
+				header:[
+					{lefticon:'bars',title:'首页',righticon:'about'},
+					{lefticon:'position',title:'发现',righticon:'add'},
+					{title:'消息',righticon:'personadd'},
+					{title:'个人',righticon:'personadd'}
+				],
+				footer:[
+					{icon:'home',title:'首页'},
+					{icon:'find',title:'发现'},
+					{icon:'message',title:'消息'},
+					{icon:'person',title:'个人'}
+				]
+			},
+			data: {
+				home:{
+			   	 	
+			 	},
+			 	message:{
+			 		listdata: [
+			      		{ path:'',logo:'img/eui-chat-1.png', name:'智能小助手1',time:'12:00',msg:'我是萌萌哒的机器人',msgnum:'1'},
+			      		{ path:'',logo:'img/eui-chat-2.png', name:'智能小助手2',time:'12:00',msg:'我是萌萌哒的机器人,你说什么鬼？哈哈哈',msgnum:'99+' }
+			    	]
+			 	}
+			}
+		});
+	</script>
+</body>
+</html>

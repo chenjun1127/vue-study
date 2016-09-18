@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>vue.js</title>
+		<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+	</head>
+	<style>
+		.bounce-transition{display:inline-block; /* 否则 scale 动画不起作用 */}
+		.bounce-enter{animation:bounce-in .5s;}
+		.bounce-leave{animation:bounce-out .5s;}
+		@keyframes bounce-in{
+			0%{transform:scale(0);}
+			50%{transform:scale(1.5);}
+			100%{transform:scale(1);}
+		}
+		@keyframes bounce-out{
+			0%{transform:scale(1);}
+			50%{transform:scale(1.5);}
+			100%{transform:scale(0);}
+		}
+	</style>
+	<body>
+		<div id="app" class="box" v-bind:class="classObj1">
+			{{ message }},{{a+b}} <br>
+			<input v-model="message"><br>
+			<div class="col" :class="classObj2" :style="[style1,style2]">
+				
+			</div>
+			<div v-if="Math.random() > 0.5">
+				Sorry
+			</div>
+			<div v-else>
+				Not sorry
+			</div>
+			<h1 v-if="ok" transition="bounce">dotay is 5</h1>
+			<h1 v-else>No</h1>
+			
+			<div :style="divBox" v-if="show"></div>
+			<h1 v-if="!show">fsdaf</h1>
+			<ul>
+				<li  v-for="item of items">{{ item.msg }}</li>
+			</ul>
+			<button value="click" v-on:click="clickEvents" >click</button>
+		</div>
+		<script>
+			var t = new Vue({
+				el: '#app',
+				data: {
+					message: 'Hello Vue.js!',
+					a: 1,
+					classObj1: {
+						'class-a': true,
+						'class-b': false
+					},
+					classObj2: ['class-c', 'class-d'],
+					style1: {
+						fontSize: '30px',
+						color: 'red',
+						background: 'red'
+					},
+					style2: {
+						height: '30px',
+						transition: 'all 0.25s ease',
+						transform: 'scale(0.5)'
+					},
+					divBox: {
+						width: '100px',
+						height: '100px',
+						background: 'green',
+						borderRadius: '0.5em'
+					},
+					items: [{
+						msg: 'Foo'
+					}, {
+						msg: 'Bar'
+					}]
+				},
+				computed: {
+					b: function() {
+						return this.a + 3
+					},
+					ok: function() {
+						var day = new Date().getDay();
+						return day == 2 ? true : false;
+					},
+					show: function() {
+						return this.divBox.background == 'green' ? true : false;
+					}
+				},
+				methods: {
+					clickEvents: function(event) {
+						alert(event.target.tagName)
+					}
+				}
+			})
+			 
+		</script>
+	</body>
+</html>

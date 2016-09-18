@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>props</title>
+	<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+</head>
+<body>
+	<div class="parent">
+		<first-child my-message="hello"></first-child>
+		<p><input type="text" v-model="msg"></p>
+		<last-child v-bind:message="msg"></last-child>
+	</div>
+	<script>
+		Vue.component('first-child', {
+			template: '<div>first-child message:{{myMessage}}</div><button type="button" @click="clickme($event)">{{myMessage}}</button>',
+			props: ['myMessage'],
+			methods:{
+				clickme:(event)=>{
+					alert(event.target.tagName)
+				}
+			}
+		})
+		Vue.component('last-child', {
+			template: '<div>last-child message:{{message}}</div>',
+			props: ['message'],
+		})
+		new Vue({
+			el: '.parent',
+			data:{
+				msg:'this is text '
+			}
+		})
+	 
+	</script>
+</body>
+</html>

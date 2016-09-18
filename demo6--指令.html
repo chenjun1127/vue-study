@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>指令</title>
+	<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+</head>
+<body>
+	<h4>v-text</h4>
+	<hr>
+	<div id="app">
+		<p v-html="msg"></p>
+		<!-- same as -->
+		<p>{{msg}}</p>
+		<h1 v-show="!ok">Hello!</h1>
+	</div>
+	<script>
+ 
+ 
+	new Vue({
+		el: '#app',
+		data: {
+			msg: '<h3>我是中国人</h3>',
+			ok:''
+		}
+	})
+		
+	</script>
+</body>
+</html>

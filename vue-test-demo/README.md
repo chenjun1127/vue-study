@@ -2,8 +2,8 @@
 
 ###准备
 我推荐使用sublime text作为编辑器，关于这个编辑器可以看我这篇文章。在package control中安装；
-*Vuejs Snippets
-*Vue Syntax Highlight
+**Vuejs Snippets
+**Vue Syntax Highlight
 推荐使用npm管理,新建两个文件app.html,app.js,为了美观使用bootstrap，我们的页面模板看起来是这样:
 ```javascript
 <!DOCTYPE html>

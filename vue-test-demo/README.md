@@ -2,8 +2,8 @@
 
 ###准备
 我推荐使用sublime text作为编辑器，关于这个编辑器可以看我这篇文章。在package control中安装；
-**Vuejs Snippets
-**Vue Syntax Highlight
+* Vuejs Snippets
+* Vue Syntax Highlight
 推荐使用npm管理,新建两个文件app.html,app.js,为了美观使用bootstrap，我们的页面模板看起来是这样:
 ```javascript
 <!DOCTYPE html>
@@ -69,5 +69,56 @@ new Vue({
 	<td>{{book.price}}</td>
 </tr>
 ```
-v-on
+####v-on
 vue.js通过v-on完成事件处理与绑定，比如为一个button绑定click事件，我们就可以这么写:
+```javascript
+<button v-on:click="doSomething">doSomething</button>
+```
+也可以这么写：
+```javascript
+<button @click="doSomething">doSomething</button>
+```
+我们需要为v-on传入事件参数,然后在vue的实例中声明doSomething这个方法就可以调用了:
+```javascript
+new Vue({
+  el: '#app',
+  methods: {
+    doSomething: function () {
+      /...../
+    }
+  }
+})
+```
+接着上面书的例子，用v-model绑定form：
+```javascript
+<div id="add-book">
+	<form action="" method="POST" role="form">
+		<legend>添加书籍</legend>					
+		<div class="form-group">
+			<label for="">书名</label>
+			<input type="text" class="form-control" placeholder="请输入书名" v-model="book.name">
+		</div>
+		<div class="form-group">
+			<label for="">作者</label>
+			<input type="text" class="form-control" placeholder="请输入作者" v-model="book.author">
+		</div>
+		<div class="form-group">
+			<label for="">价格</label>
+			<input type="text" class="form-control" placeholder="请输入价格" v-model="book.price">
+		</div>
+	  	<button class="btn btn-primary btn-block" v-on:click.stop.prevent="addBook">添加</button>
+	</form>
+</div>
+```
+在app.js中增加我们的addBook方法:
+```javascript
+methods: {
+	addBook: function() {
+		//计算书的id
+		this.book.id = this.books.length + 1;
+		this.books.push(this.book);
+		//将input中的数据重置
+		this.book = '';
+	}
+}
+```

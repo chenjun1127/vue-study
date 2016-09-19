@@ -85,7 +85,7 @@ new Vue({
   	methods: {
     	doSomething: function () {
       	/...../
-    		}
+    	}
   	}
 })
 ```

@@ -258,16 +258,16 @@ ready: function() {
 ```
 ```javascript
 methods: {
-		getDatas: function() {
-			this.$http.get('books.json').then((response) => {
-				// success callback
-				this.$set('books', response.data)
-			}, (response) => {
-				// error callback
-				console.log(response)
-			});
-		}
+	getDatas: function() {
+		this.$http.get('books.json').then((response) => {
+			// success callback
+			this.$set('books', response.data)
+		}, (response) => {
+			// error callback
+			console.log(response)
+		});
 	}
+}
 ```
 为了演示，这里将json格式的数据保存在book.json中,这段数据你可以直接使用JSON.stringify()得到：
 ```javascript

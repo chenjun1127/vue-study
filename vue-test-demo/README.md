@@ -305,3 +305,15 @@ npm install http-server -g
 http-server
 //然后访问localhost:8080/app.html
 ```
+更多参考：
+[http://www.doc00.com/doc/1001004eg](http://www.doc00.com/doc/1001004eg)
+http://vuejs.org/
+
+https://github.com/vuejs/
+
+http://vegibit.com/vue-js-tutorial/
+
+http://www.zhihu.com/people/evanyou
+
+http://www.html-js.com/article/column/99
+

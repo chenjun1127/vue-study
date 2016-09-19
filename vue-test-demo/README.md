@@ -69,7 +69,7 @@ new Vue({
 	<td>{{book.price}}</td>
 </tr>
 ```
-####v-on
+###v-on
 vue.js通过v-on完成事件处理与绑定，比如为一个button绑定click事件，我们就可以这么写:
 ```javascript
 <button v-on:click="doSomething">doSomething</button>
@@ -133,7 +133,7 @@ delBook:function(book){
 }
 ```
 vue.js为数组扩展了$remove方法，查找并删除我们作为参数传递过去的book。
-#### v-if/v-else/v-show
+### v-if/v-else/v-show
 顾名思义，v-if用于条件判断，和v-else是一对。用法也很简单，下面的代码是将id为偶数的操作按钮换个样式:
 ```javascript
 <template v-if="book.id%2==0">
@@ -147,7 +147,7 @@ vue.js为数组扩展了$remove方法，查找并删除我们作为参数传递�
 	</td>
 </template>
 ```
-#### 过滤器
+### 过滤器
 ```javascript
 {{message | reverse | uppercase}}
 ```
@@ -180,7 +180,7 @@ sortBy: function(sortparam) {
 ```javascript
 <tr v-for="book in books | orderBy sortparam">
 ```
-#### 计算属性
+### 计算属性
 计算属性可以帮助我们完成一些复杂的逻辑计算，比如我们需要添加一个书的总价，在vue实例中添加computed:
 ```javascript
 new Vue({
@@ -201,7 +201,7 @@ new Vue({
 ```javascript
 {{sum}}
 ```
-#### vue-resource
+### vue-resource
 vue-resource作为vue插件的形式存在，通过 XMLHttpRequest 或 JSONP 发起请求并处理响应。在开发中也非常常见，现在我们用vue-resource来请求books:
 ##### 引用
 ```javascript
@@ -305,7 +305,7 @@ npm install http-server -g
 http-server
 //然后访问localhost:8080/app.html
 ```
-更多参考：
+### 更多参考：
 
 [http://www.doc00.com/doc/1001004eg](http://www.doc00.com/doc/1001004eg)
 

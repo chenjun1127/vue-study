@@ -147,4 +147,106 @@ vue.js为数组扩展了$remove方法，查找并删除我们作为参数传递�
 	</td>
 </template>
 ```
-### 过滤器
+#### 过滤器
+```javascript
+{{message | reverse | uppercase}}
+```
+这里reverse并不是内建的过滤器，我们可以用Vue.filter自定义:
+```javascript
+Vue.filter('reverse', function (value) {
+    return value.split('').reverse().join('')
+})
+```
+过滤器支持接收参数，比较常用的是orderBy [param]和filterBy [param],现在我们为表格增加自定义排序的功能，为表头绑定click事件:
+```javascript
+<th @click="sortBy('id')">序号</th>
+<th @click="sortBy('name')">书名</th>
+<th @click="sortBy('author')">作者</th>
+<th @click="sortBy('price')">价格</th>
+<th class="text-right">操作</th>
+```
+想sortBy传递列的参数,定义sortBy和data:
+```javascript
+data: {
+    sortparam: ''
+},
+methods:{
+sortBy: function(sortparam) {
+        this.sortparam = sortparam;
+     }
+}
+```
+添加过滤器:
+```javascript
+<tr v-for="book in books | orderBy sortparam">
+```
+#### 计算属性
+计算属性可以帮助我们完成一些复杂的逻辑计算，比如我们需要添加一个书的总价，在vue实例中添加computed:
+```javascript
+new Vue({
+	/.../
+	computed: {
+			sum: function() {
+				var result = 0;
+				for (var i = 0; i < this.books.length; i++) {
+					result = Number(this.books[i].price) + result;
+				};
+				return result;
+			}
+		},
+	 /.../
+})
+```
+在app.html中使用插值表达式:
+```javascript
+{{sum}}
+```
+#### vue-resource
+vue-resource作为vue插件的形式存在，通过 XMLHttpRequest 或 JSONP 发起请求并处理响应。在开发中也非常常见，现在我们用vue-resource来请求books:
+##### 引用
+```javascript
+npm install vue-resource --save
+
+如果你的项目遵循CommonJS:
+var Vue = require('vue');
+Vue.use(require('vue-resource'));
+```
+也可以直接引入单文件或者CDN。
+##### 基本语法
+引入vue-resource后，可以基于全局的Vue对象使用http，也可以基于某个Vue实例使用http。
+```javascript
+// 基于全局Vue对象使用http
+Vue.http.get('/someUrl', [options]).then(successCallback, errorCallback);
+Vue.http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+
+// 在一个Vue实例内使用$http
+this.$http.get('/someUrl', [options]).then(successCallback, errorCallback);
+this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+```
+在发送请求后，使用then方法来处理响应结果，then方法有两个参数，第一个参数是响应成功时的回调函数，第二个参数是响应失败时的回调函数。
+```javascript
+// 传统写法
+this.$http.get('/someUrl', [options]).then(function(response){
+	// 响应成功回调
+}, function(response){
+	// 响应错误回调
+});
+
+
+// Lambda写法,es6
+this.$http.get('/someUrl', [options]).then((response) => {
+	// 响应成功回调
+}, (response) => {
+	// 响应错误回调
+});
+```
+##### 支持的HTTP方法
+vue-resource的请求API是按照REST风格设计的，它提供了7种请求API：
+* get(url, [options])
+* head(url, [options])
+* delete(url, [options])
+* jsonp(url, [options])
+* post(url, [body], [options])
+* put(url, [body], [options])
+* patch(url, [body], [options])
+除了jsonp以外，另外6种的API名称是标准的HTTP方法。当服务端使用REST API时，客户端的编码风格和服务端的编码风格近乎一致，这可以减少前端和后端开发人员的沟通成本。

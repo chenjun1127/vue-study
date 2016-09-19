@@ -231,8 +231,6 @@ this.$http.get('/someUrl', [options]).then(function(response){
 }, function(response){
 	// 响应错误回调
 });
-
-
 // Lambda写法,es6
 this.$http.get('/someUrl', [options]).then((response) => {
 	// 响应成功回调
@@ -249,4 +247,61 @@ vue-resource的请求API是按照REST风格设计的，它提供了7种请求API
 * post(url, [body], [options])
 * put(url, [body], [options])
 * patch(url, [body], [options])
+
 除了jsonp以外，另外6种的API名称是标准的HTTP方法。当服务端使用REST API时，客户端的编码风格和服务端的编码风格近乎一致，这可以减少前端和后端开发人员的沟通成本。
+
+我们这里采用get，在vue中新增ready对象，当页面加载完成时就去请求:
+```javascript
+ready: function() {
+	this.getDatas()
+},
+```
+```javascript
+methods: {
+		getDatas: function() {
+			this.$http.get('books.json').then((response) => {
+				// success callback
+				this.$set('books', response.data)
+			}, (response) => {
+				// error callback
+				console.log(response)
+			});
+		}
+	}
+```
+为了演示，这里将json格式的数据保存在book.json中,这段数据你可以直接使用JSON.stringify()得到：
+```javascript
+[
+    {
+        "id": 1,
+        "author": "曹雪芹",
+        "name": "红楼梦",
+        "price": 32
+    },
+    {
+        "id": 2,
+        "author": "施耐庵",
+        "name": "水浒传",
+        "price": 30
+    },
+    {
+        "id": "3",
+        "author": "罗贯中",
+        "name": "三国演义",
+        "price": 24
+    },
+    {
+        "id": 4,
+        "author": "吴承恩",
+        "name": "西游记",
+        "price": 20
+    }
+]
+```
+接下来你需要将app.html中运行在一个服务器中，否则由于浏览器安全的限制，是无法直接读取的，可以用npm启动一个服务器：
+```javascript
+npm install http-server -g
+//在当前目录
+http-server
+//然后访问localhost:8080/app.html
+```

@@ -1,10 +1,10 @@
 ##DEMO示例说明
 ###准备
-我推荐使用sublime text作为编辑器，关于这个编辑器可以看我这篇文章。在package control中安装；
+我推荐使用sublime text作为编辑器，在package control中安装；
 * Vuejs Snippets
 * Vue Syntax Highlight
 
-推荐使用npm管理,新建两个文件app.html,app.js,为了美观使用bootstrap，我们的页面模板看起来是这样:
+推荐使用npm管理,新建两个文件app.html、app.js,为了美观使用bootstrap，我们的页面模板看起来是这样:
 ```javascript
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="col-md-6 col-md-offset-3">
+		<div class="col-md-12">
 			<h1>Vue demo</h1>
 			<div id="app">
 			.......
@@ -121,4 +121,29 @@ methods: {
 		this.book = '';
 	}
 }
+```
+再健全一下功能，增加一个删除按钮:
+```javascript
+<button type="button" class="btn btn-danger" @click="delBook(book)">删除</button>
+```
+delBook方法：
+```javascript
+delBook:function(book){
+	this.books.$remove(book);
+}
+```
+vue.js为数组扩展了$remove方法，查找并删除我们作为参数传递过去的book。
+#### v-if/v-else/v-show
+顾名思义，v-if用于条件判断，和v-else是一对。用法也很简单，下面的代码是将id为偶数的操作按钮换个样式:
+```javascript
+<template v-if="book.id%2==0">
+	<td class="text-right">
+	    <button type="button" class="btn btn-success" @click="delBook(book)">删除</button>
+	</td>
+</template>
+<template v-else>
+	<td class="text-right">
+	    <button type="button" class="btn btn-danger" @click="delBook(book)">删除</button>
+	</td>
+</template>
 ```

@@ -1,5 +1,4 @@
-#####DEMO示例说明
-
+##DEMO示例说明
 ###准备
 我推荐使用sublime text作为编辑器，关于这个编辑器可以看我这篇文章。在package control中安装；
 * Vuejs Snippets
@@ -82,12 +81,12 @@ vue.js通过v-on完成事件处理与绑定，比如为一个button绑定click�
 我们需要为v-on传入事件参数,然后在vue的实例中声明doSomething这个方法就可以调用了:
 ```javascript
 new Vue({
-  el: '#app',
-  methods: {
-    doSomething: function () {
-      /...../
-    }
-  }
+  	el: '#app',
+  	methods: {
+    	doSomething: function () {
+      	/...../
+    		}
+  	}
 })
 ```
 接着上面书的例子，用v-model绑定form：

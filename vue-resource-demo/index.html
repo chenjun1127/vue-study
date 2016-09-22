@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue-resource</title>
+	<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.2/vue-resource.min.js"></script>
+</head>
+<body>
+	<div id="app">
+	 
+		<table width="100%" cellspacing="0" cellpadding="0">
+			<tr >
+				<td v-for="item in gridColumns">{{item.name}}</td>
+			
+			</tr>
+		</table>
+		<button @click="createCustomer">create</button>
+	</div>
+	<script>
+	new Vue({
+		el: '#app',
+		data: {
+			show: false,
+			gridColumns: [{
+				name: 'customerId',
+				isKey: true
+			}, {
+				name: 'companyName'
+			}, {
+				name: 'contactName'
+			}, {
+				name: 'phone'
+			}],
+			gridData: [],
+			apiUrl: 'info.json',
+			item: {}
+		},
+		ready: function() {
+			this.getCustomers()
+		},
+		methods: {
+			closeDialog: function() {
+				this.show = false
+			},
+			getCustomers: function() {
+				var vm = this
+				vm.$http.get(vm.apiUrl)
+					.then((response) => {
+						vm.$set('gridData', response.data)
+					})
+			},
+			createCustomer: function() {
+				var vm = this
+				vm.$http.post(vm.apiUrl, vm.item)
+					.then((response) => {
+						vm.$set('item', {})
+						vm.getCustomers()
+					})
+				this.show = false
+			}
+		}
+	})
+	</script>
+</body>
+</html>

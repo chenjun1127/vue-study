@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>子组件向父组件传递</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="parent">
+    </div>
+    <script>
+    var Child = {
+        template: '<div>Child:<button @click="increase">+</button>{{number}}<button @click="decrease">-</button></div>',
+        methods: {
+            increase() {
+                this.$emit("Increase");
+            },
+            decrease() {
+                this.$emit("Decrease");
+            }
+        },
+        props: ['number']
+    }
+
+    new Vue({
+        el: '#parent',
+        template: '<div><Child :number="num" v-on:Increase="increase" v-on:Decrease="decrease"></Child>Parent:{{num}}</div>',
+        components: {
+            Child
+        },
+        data: {
+            num: 0
+        },
+        methods: {
+            increase() {
+                this.num++;
+            },
+            decrease() {
+                this.num--;
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

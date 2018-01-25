@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+    <title>Vuex </title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+        <button @click="add">Increase</button>
+        <button @click="update">Update</button>
+        <counter></counter>
+    </div>
+    <script type="text/javascript">
+    const counter = {
+        template: `
+	        <div>
+		        <div>{{$store.state.count}}</div>
+		        <div>{{$store.state.name}}</div>
+		        <div>Getters:{{newName}}</div>
+	        </div>
+        `,
+        computed: {
+            newName() {
+                return this.$store.getters.fullname
+            }
+        }
+    }
+
+    const store = new Vuex.Store({
+        state: {
+            count: 0,
+            name: 'Jone'
+        },
+        getters: {
+            fullname(state) {
+                return 'Hello,' + state.name
+            }
+        },
+        mutations: {
+            increment(state) {
+                state.count++;
+            },
+            update(state, name) {
+                state.name = name
+            }
+        },
+        actions: {
+            incrementAction(context) {
+                context.commit('increment');
+            },
+        }
+    });
+    new Vue({
+        el: '#app',
+        store,
+        data: {
+            message: 'Hello Vuex!',
+        },
+        components: { counter },
+        methods: {
+            add() {
+                this.$store.dispatch('incrementAction');
+            },
+            update() {
+                this.$store.commit('update', 'Jack');
+            }
+        }
+
+    })
+    </script>
+</body>
+
+</html>

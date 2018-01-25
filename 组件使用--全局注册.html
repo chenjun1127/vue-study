@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>组件使用--全局注册</title>
-	<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>组件使用--全局注册</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
+
 <body>
-	<div class="box">
-		<my-component></my-component>
-	</div>
-	<script>
-		// 创建组件
-		var myComponent=Vue.extend({
-			template: '<div>This is {{msg}} custom component!</div><button @click=\'doSome\'>{{value}}</button>',
-			data:()=>{
-				return {
-					msg:'Vue.js',
-					value:'click me'
-				}
-			},
-			methods:{
-				doSome:()=>{
-					alert('You clicked this!')
-				}
-			}
-		})
+    <div id="example">
+        <my-component></my-component>
+    </div>
+    <script>
+    // 创建组件
+    var myComponent = {
+        template: '<div><div >This is {{msg}} custom component!</div><button  @click=\'doSome\'>{{value}}</button></div>',
+        data: () => {
+            return {
+                msg: 'Vue.js',
+                value: 'click me'
+            }
+        },
+        methods: {
+            doSome: () => {
+                alert('You clicked this!');
+            }
+        }
+    }
 
-		// 全局注册组件
-		Vue.component('my-component', myComponent);
+    // 全局注册组件
+    Vue.component('my-component', myComponent);
 
-		// 创建根实例
-		new Vue({
-			el:'.box',
-		})
-	</script>
+    // 创建根实例
+    new Vue({
+        el: '#example',
+    })
+    </script>
 </body>
+
 </html>

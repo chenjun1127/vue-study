@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+	.bounce-transition{display:inline-block;    /* 否则 scale 动画不起作用 */}
+	.bounce-enter{animation:bounce-in .5s;}
+	.bounce-leave{animation:bounce-out .5s;}
+	@keyframes bounce-in{
+		0%{transform:scale(0);}
+		50%{transform:scale(1.5);}
+		100%{transform:scale(1);}
+	}
+	@keyframes bounce-out{
+		0%{transform:scale(1);}
+		50%{transform:scale(1.5);}
+		100%{transform:scale(0);}
+	}
+
+</style>
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <h4>双向绑定：{{ message }}</h4>
+            <input v-model="message" class="form-control" placeholder="Text input">
+            <h4>a+b={{a+b}}</h4>
+            <div :class="animateEle.ele" :style="animateEle.style" @click="move">
+                {{animateEle.text}}
+            </div>
+            <h4 v-if="Math.random() > 0.5">
+                Sorry
+            </h4>
+            <h4 v-else>
+                Not sorry
+            </h4>
+        </div>
+        <div class="row">
+            <h4 v-if="ok" transition="bounce">Totay is 5</h4>
+            <h4 v-else>No</h4>
+        </div>
+        <div class="row">
+            <div :style="css3Animate" v-if="show" @click="css3Move">点击我</div>
+            <h4 v-if="!show">隐藏了</h4>
+        </div>
+        <div class="row">
+            <ul class="list-group" style="width: 100%;margin: 15px 0">
+                <li class="list-group-item" v-for="item of items">{{ item.msg }}</li>
+            </ul>
+        </div>
+        <div class="row">
+            <button value="click" class="btn btn-primary btn-lg btn-block" v-on:click="clickEvents">click</button>
+            <div v-bind:class="text_inner">{{text_message}}</div>
+        </div>
+    </div>
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!',
+            animateEle: {
+                ele: 'animateBox',
+                text: '开始运动',
+                timer: null,
+                style: {
+                    color: '#fff',
+                    width: '100%',
+                    margin: '10px 0',
+                    background: 'red',
+                    height: '50px',
+                    lineHeight: '50px',
+                    textAlign: 'center',
+                },
+            },
+            text_inner: "text",
+            text_message: '',
+            a: 1,
+            css3Animate: {
+                width: '100%',
+                height: '50px',
+                background: 'green',
+                borderRadius: '0.5em',
+                transition: '0.25s ease 0s',
+                lineHeight: '50px',
+                textAlign: 'center',
+                color: '#fff',
+            },
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }]
+        },
+        computed: {
+            b: function() {
+                return this.a + 3;
+            },
+            ok: function() {
+                var day = new Date().getDay();
+                return day == 2 ? true : false;
+            },
+            show: function() {
+                return this.css3Animate.background == 'green' ? true : false;
+            }
+        },
+        methods: {
+            clickEvents: function(event) {
+                this.text_message = event.target.tagName;
+            },
+            move: function() {
+                this.animateEle.text = '运动中...';
+                var h = parseFloat(this.animateEle.style.height);
+                this.animateEle.timer = setInterval(function() {
+                    h++;
+                    if (h >= 100) {
+                        clearInterval(this.animateEle.timer);
+                        this.animateEle.text = '运动停止';
+                    } else {
+                        this.animateEle.style.height = h + 'px';
+                        this.animateEle.style.lineHeight = h + 'px';
+                    }
+                }.bind(this), 50);
+            },
+            css3Move: function() {
+                this.css3Animate.height = '100px';
+                this.css3Animate.lineHeight = '100px';
+                setTimeout(function() {
+                    this.css3Animate.background = 'red';
+                }.bind(this), 1000);
+            }
+        },
+    })
+    </script>
+</body>
+
+</html>

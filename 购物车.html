@@ -1,94 +1,93 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>购物车</title>
-	<style>
-	*{padding: 0;margin: 0;}
-	body{padding: 30px;}
-	table{border-collapse: collapse; }
-	table tr td{border:1px solid #ccc;padding: 10px;}
-	</style>
-	<script src="http://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
-</head>
-<body>
-	<div class="app" id="">
-		<table cellspacing="0" cellpadding="0" border="0" width="100%">
-			<tr >
-				<td>{{titles[0]}}</td>
-				<td>{{titles[1]}}</td>
-				<td>{{titles[2]}}</td>
-				<td>{{titles[3]}}</td>
-				<td>{{titles[4]}}</td>
-			</tr >
-			<tr v-for="data in datas">
-				<td>{{data.id}}</td>
-				<td>{{data.name}}</td>
-				<td>{{data.price}}</td>
-				<td><button value="-" @click="minus($index)">-</button>{{data.sum}}<button value="+" @click="add($index)">+</button></td>
-				<td>{{data.calc}}</td>
-			</tr>
-			<tr>
-				<td colspan="4">总计</td>
-				<td>{{sum}}</td>
-			</tr>
-		</table>
-	
-	</div>
-	<script>
-		var saleCar=new Vue({
-			el:".app",
-			data:{
-				titles:['id','名称','价格','数量','小计'],
-				datas:[
-				    {
-				        "id": 1,
-				        "name": "iphone6",				       
-				        "price": 4288,
-				        "sum":1,
-				        "calc":4288
 
-				    },
-				    {
-				        "id": 2,
-				        "name": "三星Note3",				       
-				        "price": 3288,
-				        "sum":1,
-				        "calc":3288
-				    },
-				     
-				],
-				
-			} ,
-			computed: {
-				sum: function() {
-					var result = 0;
-					for (var i = 0; i < this.datas.length; i++) {
-						result += Number(this.datas[i].calc)
-					}
-					return result
-				}
-			},
-			methods: {
-				minus: function($index) {
-					var self = this.datas[$index];
-					if (self.sum <= 0) {
-						return false
-					}
-					self.sum--;
-					self.calc = self.sum * self.price;
-				},
-				add: function($index) {
-					var self = this.datas[$index];
-					if (self.sum >= 10) {
-						return false
-					}
-					self.sum++;
-					self.calc = self.sum * self.price;
-				}
-			}
-		})
-	</script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>购物车</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <table class="table table-bordered">
+            <tr>
+                <td v-for="title in titles">{{title}}</td>
+            </tr>
+            <tr v-for="(data,index) in datas">
+                <td>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.price}}</td>
+                <td>
+                    <div class="input-group">
+                        <div class="input-group-addon" @click="minus(index)"> - </div>
+                        <input type="text" class="form-control" v-model="data.sum"  disabled placeholder="Amount">
+                        <div class="input-group-addon" @click="add(index)">+</div>
+                    </div>
+                </td>
+                <td>{{data.calc}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">总计</td>
+                <td>{{sum}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+    var saleCar = new Vue({
+        el: "#app",
+        data: {
+            titles: ['ID', '名称', '价格', '数量', '小计'],
+            datas: [{
+                    "id": 1,
+                    "name": "iphone6",
+                    "price": 4288,
+                    "sum": 1,
+                    "calc": 4288
+
+                },
+                {
+                    "id": 2,
+                    "name": "三星Note3",
+                    "price": 3288,
+                    "sum": 1,
+                    "calc": 3288
+                },
+
+            ],
+
+        },
+        computed: {
+            sum: function() {
+                var result = 0;
+                for (var i = 0; i < this.datas.length; i++) {
+                    result += Number(this.datas[i].calc)
+                }
+                return result
+            }
+        },
+        methods: {
+            minus: function($index) {
+                var self = this.datas[$index];
+                if (self.sum <= 0) {
+                    return false
+                }
+                self.sum--;
+                self.calc = self.sum * self.price;
+            },
+            add: function($index) {
+                var self = this.datas[$index];
+                if (self.sum >= 10) {
+                    return false
+                }
+                self.sum++;
+                self.calc = self.sum * self.price;
+            }
+        }
+    })
+    </script>
 </body>
+
 </html>

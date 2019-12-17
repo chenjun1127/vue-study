@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$listeners</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script>
+    const Child = {
+        template: ` 
+            <div class="child">
+                <h2>我是孙子</h2> 
+                <p>我爷爷名叫{{$attrs.fatherName}}，今年{{$attrs.grandFatherAge}}岁</p>        
+                <button @click="helloGrandFather">叫爷爷</button>
+                <button @click="helloFather">叫爸爸</button>
+            </div>
+        `,
+
+        methods: {
+            helloGrandFather() {
+                this.$attrs.fatherName = "1"
+                this.$emit("helloGrandFather", "孙子", "爷爷，我是您孙子")
+            },
+            helloFather() {
+                this.$emit("helloFather", "儿子", "爸爸，我是您儿子")
+            }
+        }
+    }
+    const Content = {
+        template: `
+            <div>  
+                <h2>我是儿子</h2>                         
+                <Child v-bind="$attrs" v-on="$listeners"  /> 
+            </div>
+        `,
+        components: { Child },
+    }
+    // 父组件
+    new Vue({
+        el: '#app',
+        template: ` 
+            <div>
+               <h2>我是爷爷</h2>（{{name}},{{age}}） 
+               <Content :fatherName="name" :grandFatherAge="age" @helloGrandFather="grandsonsWords" @helloFather="grandsonsWords" /> 
+            </div>
+        `,
+        components: { Content: Content },
+        data: {
+            name: "张三",
+            age: 70
+        },
+        methods: {
+            grandsonsWords(call, words) {
+                this.age += 1
+                alert(call + "对我说：" + words)
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

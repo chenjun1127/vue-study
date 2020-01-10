@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>组件语法糖</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script>
+    const Third = {
+        template: ` 
+            <div>
+                <div>This is the third component!</div>
+                provide/inject：{{demo}}
+            </div>
+        `,
+        inject: ['for'],
+        data() {
+            return {
+                demo: this.for
+            }
+        }
+    }
+    const Two = {
+        template: ` 
+            <div>
+                <div>This is the second component!</div>
+                <Third></Third>
+            </div>
+        `,
+        components: { Third }
+    }
+    const One = {
+        template: ` 
+            <div>
+                <div>This is the first component!</div>
+                <Two></Two>
+            </div>
+        `,
+        components: { Two },
+        provide: {
+            for: 'demo'
+        }
+    }
+    new Vue({
+        el: '#app',
+        template: '<One></One>',
+        components: { One }
+    })
+    </script>
+</body>
+
+</html>

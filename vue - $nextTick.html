@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>组件语法糖</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script>
+    Vue.component('my-component', {
+        template: ` 
+            <div>
+                <div ref="test">A custom component!--{{text}}</div>
+                <button @click="handleClick">test</button>
+            <div>
+        `,
+        data: function() {
+            return {
+                text: "begin"
+            }
+        },
+        methods: {
+            handleClick() {
+                this.text = "end"
+                this.$nextTick(() => {
+                    console.log(this.$refs.test.innerText);
+                })
+            }
+        }
+    })
+    new Vue({
+        el: '#app',
+        template: '<my-component></my-component>'
+    })
+    </script>
+</body>
+
+</html>

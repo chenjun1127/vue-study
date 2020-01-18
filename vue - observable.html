@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>vue - observable</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script>
+    const state = Vue.observable({ count: 0 });
+    const Two = {
+        template: ` 
+            <div>
+                <div>This is the second component!</div>
+                <p>count:{{state.count}}</p>    
+                <div><button @click="clickMe">click</button></div>               
+            </div>
+        `,
+        data() {
+            return {
+                state
+            }
+        },
+        methods: {
+            clickMe() {
+                this.state.count++;
+            }
+        }
+    }
+    const One = {
+        template: ` 
+            <div>
+                <div>This is the first component!</div>
+                <p>count:{{state.count}}</p>                
+                <Two></Two>
+            </div>
+        `,
+        components: { Two }
+    }
+    const vue = new Vue({
+        el: '#app',
+        template: '<One></One>',
+        components: { One }
+    })
+ 
+    </script>
+</body>
+
+</html>
